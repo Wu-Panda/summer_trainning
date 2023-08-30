@@ -1,0 +1,9 @@
+//Administrator
+//example: name,password
+admin,ynuinfo#777
+
+
+
+//Customer
+//example: name,password,id,level,time,expense,phone,email
+a,a,20211060001,0,23-8-25,0.0,18381939375,2076576407@qq.com

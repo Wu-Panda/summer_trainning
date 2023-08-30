@@ -1,0 +1,151 @@
+@startuml
+User <|-- Administrator
+User <|-- Customer
+User "1" *-- "1" System : contains
+Administrator --|> Menu
+Customer --|> Menu
+Customer "1" *-- "*" Product : has
+Customer "1" *-- "*" ShopHistory : has
+ShopHistory "1" *-- "*" ProductPurchase : includes
+
+System --> Database : uses
+class System {
+    - username: String
+    - password: String
+    - customers: ArrayList<Customer>
+    - administrators: ArrayList<Administrator>
+    - products: ArrayList<Product>
+
+    +getUsername(): String
+    +setUsername(username: String): void
+    +getPassword(): String
+    +setPassword(password: String): void
+    +main(args: String[]): void
+}
+class User {
+    - type: int
+    - username: String
+    - password: String
+
+    +setUsername(username: String): void
+    +setPassword(password: String): void
+    +getUsername(): String
+    +getPassword(): String
+}
+class Administrator {
+    - type: String
+    - name: String
+    - password: String
+
+    +Administrator(username: String, password: String)
+    +Administrator()
+    +getName(): String
+    +getPassword(): String
+    +changeAdminPassword(): void
+    +resetCustomersPassword(): void
+    +listAllCustomers(): void
+    +deleteCustomer(): void
+    +searchCustomer(): void
+    -checkOldPassword(oldPassword: String): boolean
+    -updatePassword(newPassword: String): void
+    +searchById(id: String): void
+    +searchByUsername(username: String): void
+    +searchAllCustomers(): void
+}
+
+class Customer {
+    - type: final int
+    - username: String
+    - password: String
+    - Id: String
+    - level: int
+    - reTime: String
+    - totalCost: double
+    - phoneNumber: String
+    - email: String
+    - productCar: ArrayList<Product>
+    - shopHistory: ArrayList<ShopHistory>
+
+    +Customer()
+    +Customer(username: String, password: String, Id: String, level: int, reTime: String,
+              totalCost: double, phoneNumber: String, email: String)
+    +Customer(username: String, password: String)
+    +setUsername(username: String): void
+    +setPassword(password: String): void
+    +getUsername(): String
+    +getPassword(): String
+    +register(): void
+    +forget_password(customer: Customer): void
+    +changePassword(): void
+    +displayProducts(): void
+}
+class Database {
+    - users_path: String
+    - products_path: String
+
+    +readAdministrator(): ArrayList<Administrator>
+    +readCustomers(): ArrayList<Customer>
+    +readProducts(): ArrayList<Product>
+}
+
+class Menu {
+    +main_menu(): void
+    +customers_menu(): void
+    +administrator_menu(): void
+    +passwordManagement_menu(admin: Administrator): void
+    +customersManagement_menu(admin: Administrator): void
+    +productsManagement_menu(admin: Administrator): void
+    +shop_menu(customer: Customer): void
+    +saveTxt(): void
+    -normalized_Input(str: String): boolean
+}
+
+class Product {
+    - id: String
+    - name: String
+    - producer: String
+    - proTime: String
+    - type: String
+    - purPrice: double
+    - retPrice: double
+    - amount: int
+
+    +Product()
+    +Product(id: String, name: String, producer: String, productionDate: String,
+              type: String, purchasePrice: double, retailPrice: double, amount: int)
+    +getId(): String
+    +setId(id: String): void
+    +getName(): String
+    +setName(name: String): void
+    +getProducer(): String
+    +setProducer(producer: String): void
+    +setProTime(proTime: String): void
+    +getProTime(): String
+    +getType(): String
+    +setType(type: String): void
+    +getPurPrice(): double
+    +setPurPrice(purPrice: double): void
+    +getRetPrice(): double
+    +setRetPrice(retPrice: double): void
+    +getAmount(): int
+    +setAmount(amount: int): void
+    +updateInfo(name: String, producer: String, productionDate: String, type: String,
+                purchasePrice: double, retailPrice: double, amount: int): void
+}
+
+class ShopHistory {
+    - time: String
+    - products: ArrayList<ProductPurchase>
+
+    +ShopHistory(products: ArrayList<Product>)
+    +getTime(): String
+    +getProducts(): ArrayList<ProductPurchase>
+}
+
+class ProductPurchase {
+    - name: String
+    - quantity: int
+
+    +ProductPurchase(name: String, quantity: int)
+}
+@enduml
